@@ -36,25 +36,6 @@ function LoginSignup () {
                 </SignupBox>
             </div>
             {isSignup ? null : <SignupButton onClick={() => setIsSignup(true)}>SIGN UP</SignupButton>}
-            {/*{isSignup ? <div className={"fadeInAnimation"}>*/}
-            {/*    <SignupBox>*/}
-            {/*        <CloseButton onClick={() => setIsSignup(false)}>&times;</CloseButton>*/}
-            {/*        <h3>SIGNUP</h3>*/}
-            {/*        <SignupInputBox>*/}
-            {/*            <div id={"nicknameWrap"}>*/}
-            {/*                <input placeholder={"Nickname"} />*/}
-            {/*                <button>Confirm</button>*/}
-            {/*            </div>*/}
-            {/*            <input placeholder={"Phone Number"} />*/}
-            {/*            <input placeholder={"Email Address"} />*/}
-            {/*            <div id={"passwordWrap"}>*/}
-            {/*                <input type={"password"} placeholder={"Password"} />*/}
-            {/*                <input type={"password"} placeholder={"Repeat Password"} />*/}
-            {/*            </div>*/}
-            {/*            <button>GO</button>*/}
-            {/*        </SignupInputBox>*/}
-            {/*    </SignupBox>*/}
-            {/*</div> : <SignupButton onClick={() => setIsSignup(true)}>SIGN UP</SignupButton>}*/}
         </LoginSignupWrap>
     )
 }

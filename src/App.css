@@ -67,4 +67,5 @@ body{
 .fadeOutAnimation{
   position : absolute;
   animation: fadeOut 0.5s ease forwards;
+  z-index: -1;
 }
