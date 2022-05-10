@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+body{
+  box-sizing: border-box;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -37,6 +41,30 @@
   }
 }
 
-.test{
-  width : 50%;
+@keyframes fadeIn {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 100;
+  }
+}
+
+@keyframes fadeOut {
+  from{
+    opacity: 100;
+  }
+  to{
+    opacity: 0;
+  }
+}
+
+.fadeInAnimation{
+  position : absolute;
+  animation: fadeIn 0.5s ease;
+}
+
+.fadeOutAnimation{
+  position : absolute;
+  animation: fadeOut 0.5s ease forwards;
 }
