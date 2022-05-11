@@ -1,10 +1,14 @@
 import {LoginBox, SignupInputBox, LoginSignupWrap, SignupButton, InputBox, SignupBox, CloseButton} from "../style/styleLoginSignup";
 import {useState} from "react";
-import axios from 'axios';;
+import axios from 'axios';
+import {useSelector, useDispatch} from "react-redux";
+import {userInfoStatus, login} from "../redux/user/userInfo";
 
 axios.defaults.withCredentials = true;
 
 function LoginSignup () {
+    const dispatch = useDispatch();
+    const statusResult = useSelector(userInfoStatus);
     const [isSignup, setIsSignup] = useState(false);
     const [userInfo, setUserInfo] = useState({
         username : '',
@@ -12,6 +16,7 @@ function LoginSignup () {
         phone : '',
         email : ''
     });
+
 
     const userInfoHandler = (key) => (e) => {
         if(e.target.placeholder === "Nickname"){
@@ -27,7 +32,9 @@ function LoginSignup () {
             password : userInfo.password
         }).then((res) => {
             if(res.data.success){
-                alert('로그인 완료')
+                console.log(res.data.response)
+                dispatch(login({userToken : res.data.response}));
+                alert('로그인 완료');
                 window.location.href = '/main'
             }
         }).catch((err) => {
@@ -39,6 +46,7 @@ function LoginSignup () {
         });
     }
 
+    // console.log(statusResult)
 
     return (
         <LoginSignupWrap>
