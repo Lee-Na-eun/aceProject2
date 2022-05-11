@@ -1,7 +1,9 @@
 import {LoginBox, SignupInputBox, LoginSignupWrap, SignupButton, InputBox, SignupBox, CloseButton} from "../style/styleLoginSignup";
 import {useState} from "react";
+import axios from 'axios'
 
 function LoginSignup () {
+    const url = process.env.SERVER_URL
     const [isSignup, setIsSignup] = useState(false);
 
     console.log(isSignup)
