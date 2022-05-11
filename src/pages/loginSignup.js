@@ -1,21 +1,53 @@
 import {LoginBox, SignupInputBox, LoginSignupWrap, SignupButton, InputBox, SignupBox, CloseButton} from "../style/styleLoginSignup";
 import {useState} from "react";
-import axios from 'axios'
+import axios from 'axios';;
+
+axios.defaults.withCredentials = true;
 
 function LoginSignup () {
-    const url = process.env.SERVER_URL
     const [isSignup, setIsSignup] = useState(false);
+    const [userInfo, setUserInfo] = useState({
+        username : '',
+        password : '',
+        phone : '',
+        email : ''
+    });
 
-    console.log(isSignup)
+    const userInfoHandler = (key) => (e) => {
+        if(e.target.placeholder === "Nickname"){
+            setUserInfo({...userInfo, [key] : e.target.value});
+        }else if(e.target.placeholder === "Password"){
+            setUserInfo({...userInfo, [key] : e.target.value});
+        }
+    }
+
+    const handleLogin = () => {
+        axios.post(`/api/login`,{
+            username : userInfo.username,
+            password : userInfo.password
+        }).then((res) => {
+            if(res.data.success){
+                alert('로그인 완료')
+                window.location.href = '/main'
+            }
+        }).catch((err) => {
+            if(userInfo.username === '' || userInfo.password === '') {
+                alert('입력하지 않은 정보가 있습니다.');
+            }else{
+                alert('아이디 혹은 비밀번호가 틀렸습니다.');
+            }
+        });
+    }
+
 
     return (
         <LoginSignupWrap>
             <LoginBox>
                 <h3>LOGIN</h3>
                 <InputBox>
-                    <input placeholder={"Nickname"} />
-                    <input type={"password"} placeholder={"Password"} />
-                    <button>GO</button>
+                    <input placeholder={"Nickname"} onChange={userInfoHandler('username')} />
+                    <input type={"password"} placeholder={"Password"} onChange={userInfoHandler('password')} />
+                    <button onClick={handleLogin}>GO</button>
                 </InputBox>
             </LoginBox>
             <div className={isSignup ? "fadeInAnimation" : "fadeOutAnimation"}>
@@ -39,6 +71,7 @@ function LoginSignup () {
             </div>
             {isSignup ? null : <SignupButton onClick={() => setIsSignup(true)}>SIGN UP</SignupButton>}
         </LoginSignupWrap>
+
     )
 }
 

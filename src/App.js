@@ -1,17 +1,20 @@
 import './App.css';
 import LoginSignup from "./pages/loginSignup";
-
+import Main from "./pages/main";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
+
+    // console.log(window.location.href = 'http://localhost:3000/main')
   return (
-    <div className="App">
-      {/*  <Breadcrumb>*/}
-      {/*      <Breadcrumb.Item>Test</Breadcrumb.Item>*/}
-      {/*  </Breadcrumb>*/}
-      {/*  <Alert variant={"danger"}>This is a button</Alert>*/}
-      {/*<Button>Boot strap</Button>*/}
-      <LoginSignup />
-    </div>
+      <BrowserRouter>
+        <div className="App">
+            <Routes>
+                <Route path='/' element={<LoginSignup />} />
+                <Route path='/main' element={<Main />} />
+            </Routes>
+        </div>
+      </BrowserRouter>
   );
 }
 
