@@ -13,17 +13,49 @@ function LoginSignup () {
     const [userInfo, setUserInfo] = useState({
         username : '',
         password : '',
+        repeatPassword : '',
         phone : '',
         email : ''
     });
+    const [isconfirm, setIsconfirm] = useState(false);
 
 
     const userInfoHandler = (key) => (e) => {
-        if(e.target.placeholder === "Nickname"){
-            setUserInfo({...userInfo, [key] : e.target.value});
-        }else if(e.target.placeholder === "Password"){
-            setUserInfo({...userInfo, [key] : e.target.value});
+        if(e.target.placeholder === "Phone Number"){
+            e.target.value = e.target.value
+            .replace(/[^0-9]/g, '')
+            .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+            .replace(/(\-{1,2})$/g, "");
         }
+        setUserInfo({...userInfo, [key] : e.target.value});
+    }
+
+
+
+    const handleConfirmUsername = () => {
+        axios.post(`/api/checkUsername`, {
+            username : userInfo.username
+        }).then((res) => console.log(res))
+    }
+
+    const handleSignup = () => {
+        const validPassword = userInfo.password.length;
+        const validPhone = 0;
+        if(!isconfirm){
+            alert("아이디 중복확인을 해주세요.");
+        }else if(userInfo.password !== userInfo.repeatPassword){
+            alert("비밀번호가 일치하지 않습니다.");
+        }else if(validPassword > 12 && validPassword < 4){
+            alert("비밀번호는 4이상 12이하이어야 합니다.");
+        }
+        axios.post(`/api/register`, {
+            username : userInfo.username,
+            password : userInfo.password,
+            phone : userInfo.phone,
+            email : userInfo.phone
+        }).then((res) => {
+            console.log(res)
+        })
     }
 
     const handleLogin = () => {
@@ -31,11 +63,12 @@ function LoginSignup () {
             username : userInfo.username,
             password : userInfo.password
         }).then((res) => {
+            console.log(res)
             if(res.data.success){
                 console.log(res.data.response)
+                window.location.href = '/main'
                 dispatch(login({userToken : res.data.response}));
                 alert('로그인 완료');
-                window.location.href = '/main'
             }
         }).catch((err) => {
             if(userInfo.username === '' || userInfo.password === '') {
@@ -45,9 +78,7 @@ function LoginSignup () {
             }
         });
     }
-
-    // console.log(statusResult)
-
+    console.log(userInfo.phone.length)
     return (
         <LoginSignupWrap>
             <LoginBox>
@@ -64,16 +95,16 @@ function LoginSignup () {
                     <h3>SIGNUP</h3>
                     <SignupInputBox>
                         <div id={"nicknameWrap"}>
-                            <input placeholder={"Nickname"} />
-                            <button>Confirm</button>
+                            <input placeholder={"Nickname"} onChange={userInfoHandler('username')} />
+                            <button onClick={handleConfirmUsername}>Confirm</button>
                         </div>
-                        <input placeholder={"Phone Number"} />
-                        <input placeholder={"Email Address"} />
+                        <input placeholder={"Phone Number"} onChange={userInfoHandler('phone')} />
+                        <input placeholder={"Email Address"} onChange={userInfoHandler('email')} />
                         <div id={"passwordWrap"}>
-                            <input type={"password"} placeholder={"Password"} />
-                            <input type={"password"} placeholder={"Repeat Password"} />
+                            <input type={"password"} placeholder={"Password"} onChange={userInfoHandler('password')} />
+                            <input type={"password"} placeholder={"Repeat Password"} onChange={userInfoHandler('repeatPassword')} />
                         </div>
-                        <button>GO</button>
+                        <button onClick={handleSignup}>GO</button>
                     </SignupInputBox>
                 </SignupBox>
             </div>
