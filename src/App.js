@@ -1,14 +1,18 @@
 import './App.css';
-import RoutesCom from "./Routes";
+import {useSelector} from "react-redux";
+import {userInfoStatus} from "./redux/user/userInfo";
+import RoutesCom from "./routes";
 
 function App() {
+    const resultUser = useSelector(userInfoStatus);
+    console.log(window.location.pathname)
+    console.log(resultUser);
 
-    // console.log(window.location.href = 'http://localhost:3000/main')
-  return (
+    return (
         <div className="App">
             <RoutesCom />
         </div>
-  );
+    );
 }
 
 export default App;
