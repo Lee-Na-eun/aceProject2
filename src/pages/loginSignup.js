@@ -1,14 +1,15 @@
 import {LoginBox, SignupInputBox, LoginSignupWrap, SignupButton, InputBox, SignupBox, CloseButton} from "../style/styleLoginSignup";
 import {useState} from "react";
 import axios from 'axios';
-import {useSelector, useDispatch} from "react-redux";
-import {userInfoStatus, login} from "../redux/user/userInfo";
+import {useDispatch} from "react-redux";
+import {login} from "../redux/user/userInfo";
+import {useNavigate} from "react-router";
 
 axios.defaults.withCredentials = true;
 
 function LoginSignup () {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const statusResult = useSelector(userInfoStatus);
     const [isSignup, setIsSignup] = useState(false);
     const [userInfo, setUserInfo] = useState({
         username : '',
@@ -17,7 +18,7 @@ function LoginSignup () {
         phone : '',
         email : ''
     });
-    const [isconfirm, setIsconfirm] = useState(false);
+    const [isConfirm, setIsConfirm] = useState(false);
 
 
     const userInfoHandler = (key) => (e) => {
@@ -33,29 +34,47 @@ function LoginSignup () {
 
 
     const handleConfirmUsername = () => {
-        axios.post(`/api/checkUsername`, {
-            username : userInfo.username
-        }).then((res) => console.log(res))
+        if(userInfo.username.length === 0) {
+            alert("아이디를 먼저 입력해주세요.")
+        }else{
+            axios.post(`/api/usernameCheck?username=${userInfo.username}`)
+            .then((res) => {
+                if(res.data.response){
+                    setIsConfirm(false);
+                    alert("사용 중인 아이디 입니다.");
+                }else{
+                    setIsConfirm(true);
+                    alert("사용할 수 있는 아이디 입니다.")
+                }
+            })
+        }
     }
 
     const handleSignup = () => {
         const validPassword = userInfo.password.length;
-        const validPhone = 0;
-        if(!isconfirm){
+        const hyphenPhone = userInfo.phone.split('-');
+        if(!isConfirm){
             alert("아이디 중복확인을 해주세요.");
         }else if(userInfo.password !== userInfo.repeatPassword){
             alert("비밀번호가 일치하지 않습니다.");
         }else if(validPassword > 12 && validPassword < 4){
             alert("비밀번호는 4이상 12이하이어야 합니다.");
+        }else if(userInfo.phone.length !== 14 && hyphenPhone.length !== 3){
+            alert("11자리의 전화번호를 입력해주세요.");
+        }else{
+            axios.post(`/api/register`, {
+                username : userInfo.username,
+                password : userInfo.password,
+                phone : userInfo.phone,
+                email : userInfo.phone
+            }).then((res) => {
+                if(res.data.response === "REGIST OK"){
+                    alert("회원가입이 완료 되었습니다.");
+                }
+            }).catch(() => {
+                alert("잠시 후 다시 이용해 주세요.");
+            })
         }
-        axios.post(`/api/register`, {
-            username : userInfo.username,
-            password : userInfo.password,
-            phone : userInfo.phone,
-            email : userInfo.phone
-        }).then((res) => {
-            console.log(res)
-        })
     }
 
     const handleLogin = () => {
@@ -63,14 +82,14 @@ function LoginSignup () {
             username : userInfo.username,
             password : userInfo.password
         }).then((res) => {
-            console.log(res)
+            // console.log(res)
             if(res.data.success){
-                console.log(res.data.response)
-                window.location.href = '/main'
+                // console.log(res.data.response)
                 dispatch(login({userToken : res.data.response}));
                 alert('로그인 완료');
+                navigate('/main');
             }
-        }).catch((err) => {
+        }).catch(() => {
             if(userInfo.username === '' || userInfo.password === '') {
                 alert('입력하지 않은 정보가 있습니다.');
             }else{
@@ -78,7 +97,9 @@ function LoginSignup () {
             }
         });
     }
-    console.log(userInfo.phone.length)
+
+    // console.log('',isConfirm)
+
     return (
         <LoginSignupWrap>
             <LoginBox>

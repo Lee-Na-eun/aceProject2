@@ -5,6 +5,7 @@ import {useEffect} from "react";
 function Main () {
     const statusResult = useSelector(userInfoStatus);
 
+    console.log('', statusResult);
 
     return (
         <div>main page</div>
