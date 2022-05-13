@@ -4,7 +4,7 @@ module.exports = function(app){
     app.use(
         '/api',
         createProxyMiddleware({
-            target : 'http://test.sprfid.io',
+            target : process.env.SERVER_URL,
             pathRewrite: {
                 '^/api': '/',
             },

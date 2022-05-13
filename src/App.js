@@ -1,6 +1,6 @@
-import './App.css';
+import 'App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {routePageDatas} from "./data/pageData";
+import {routePageDatas} from "data/pageData";
 
 function App() {
 

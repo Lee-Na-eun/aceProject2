@@ -1,6 +1,6 @@
-import Main from "../pages/main";
-import LoginSignup from "../pages/loginSignup";
-import ProtectedRoute from "../component/protectedRoute";
+import Main from "pages/main";
+import LoginSignup from "pages/loginSignup";
+import ProtectedRoute from "common/protectedRoute";
 
 export const routePageDatas = [
     {routePath: '/', page : <LoginSignup />},

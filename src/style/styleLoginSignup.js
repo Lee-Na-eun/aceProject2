@@ -138,6 +138,11 @@ export const SignupInputBox =styled.div`
         background-color : white;
         color : #FF4F83;
         font-size : 12px;
+        cursor : pointer;
+        transition : 0.2s;
+    }
+    > button:hover {
+        background-color : #FFEDF2;
     }
     > input{
        height : 30px;
@@ -148,6 +153,10 @@ export const SignupInputBox =styled.div`
         border-radius : 10px;
         font-size : 13px;
     }
+    > input:focus {
+    outline : none;
+    border : 2px solid white;
+   }
    }
    > #passwordWrap {
     display : flex;
@@ -159,7 +168,12 @@ export const SignupInputBox =styled.div`
        border-radius : 10px;
        padding-left : 10px;
        font-size : 13px;
+       transition : 0.2s;
     }
+    > input:focus {
+    outline : none;
+    border : 2px solid white;
+   }
     > input:nth-child(2){
         margin-left : 18px;
     }

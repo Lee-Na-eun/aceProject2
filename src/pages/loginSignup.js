@@ -1,11 +1,9 @@
-import {LoginBox, SignupInputBox, LoginSignupWrap, SignupButton, InputBox, SignupBox, CloseButton} from "../style/styleLoginSignup";
+import {LoginBox, SignupInputBox, LoginSignupWrap, SignupButton, InputBox, SignupBox, CloseButton} from "style/styleLoginSignup";
 import {useState} from "react";
-import axios from 'axios';
 import {useDispatch} from "react-redux";
-import {login} from "../redux/user/userInfo";
+import {login} from "redux/user/userInfo";
 import {useNavigate} from "react-router";
-
-axios.defaults.withCredentials = true;
+import {axiosApiInstance} from 'common/axiosToken'
 
 function LoginSignup () {
     const navigate = useNavigate();
@@ -35,16 +33,16 @@ function LoginSignup () {
 
     const handleConfirmUsername = () => {
         if(userInfo.username.length === 0) {
-            alert("아이디를 먼저 입력해주세요.")
+            alert("아이디를 먼저 입력해주세요.");
         }else{
-            axios.post(`/api/usernameCheck?username=${userInfo.username}`)
+            axiosApiInstance.post(`/api/usernameCheck?username=${userInfo.username}`)
             .then((res) => {
                 if(res.data.response){
                     setIsConfirm(false);
                     alert("사용 중인 아이디 입니다.");
                 }else{
                     setIsConfirm(true);
-                    alert("사용할 수 있는 아이디 입니다.")
+                    alert("사용할 수 있는 아이디 입니다.");
                 }
             })
         }
@@ -62,7 +60,7 @@ function LoginSignup () {
         }else if(userInfo.phone.length !== 14 && hyphenPhone.length !== 3){
             alert("11자리의 전화번호를 입력해주세요.");
         }else{
-            axios.post(`/api/register`, {
+            axiosApiInstance.post(`/api/register`, {
                 username : userInfo.username,
                 password : userInfo.password,
                 phone : userInfo.phone,
@@ -78,7 +76,7 @@ function LoginSignup () {
     }
 
     const handleLogin = () => {
-        axios.post(`/api/login`,{
+        axiosApiInstance.post(`/api/login`,{
             username : userInfo.username,
             password : userInfo.password
         }).then((res) => {
