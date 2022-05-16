@@ -69,3 +69,29 @@ body{
   /*animation: fadeOut 0.5s ease forwards;*/
   z-index: -1;
 }
+
+@keyframes moveRightNav {
+  from{
+    margin-left : 0;
+  }
+  to{
+    margin-left : 200px;
+  }
+}
+
+@keyframes moveLeftNav {
+  from{
+    margin-left : 200px;
+  }
+  to{
+    margin-left : 0;
+  }
+}
+
+.navRightMove {
+  animation: moveRightNav 0.8s ease forwards;
+}
+
+.navLeftMove {
+  animation: moveLeftNav 0.8s ease forwards;
+}

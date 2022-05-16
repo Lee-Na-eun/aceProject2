@@ -8,7 +8,6 @@ function ProtectedRoute ({children}) {
     if(userResult.userToken === ''){
         return <Navigate replace to={'/'} />
     }
-
     return children;
 }
 

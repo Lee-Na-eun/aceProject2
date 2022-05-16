@@ -11,7 +11,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     {routePage.map(
-                        (el, idx) => <Route key={idx} path={el.routePath} element={el.page}/>)}
+                        (el, idx) =>
+                            <Route key={idx} path={el.routePath} element={el.page}/>)}
                 </Routes>
             </BrowserRouter>
         </div>
