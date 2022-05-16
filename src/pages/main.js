@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
 import {axiosApiInstance} from 'common/axiosToken'
 import {TableBox, ContentListWrap, ContentAllBox} from "../style/styleMain";
-import {saveBoard} from "../redux/modal/saveBoardId";
+import {saveContent} from "../redux/modal/saveContent";
 import {detailOpen, modalDetail} from "../redux/modal/modaOpen";
 import {useDispatch, useSelector} from "react-redux";
 import ModalDetail from "../component/ModalDetailContent";
+import {contentStatus} from "../redux/modal/saveContent";
 
 function Main() {
     const [postContent, setPostContent] = useState([]);
@@ -24,7 +25,6 @@ function Main() {
         .then((res) => {
             setPostContent(res.data.response.content);
             setAllPageNumber(res.data.response.totalPages);
-            console.log('a', res.data.response);
         });
     }, []);
 
@@ -46,10 +46,19 @@ function Main() {
     }
 
     const detailModalOpen = (boardId) => {
-        dispatch(saveBoard({boardId : boardId}));
+        axiosApiInstance.get(`/api/detail/${boardId}`)
+        .then((res) => {
+            console.log(res.data)
+            dispatch(saveContent({
+                title : res.data.title,
+                username : res.data.username,
+                content : res.data.content
+            }));
+
+        });
+
         dispatch(detailOpen());
     }
-
 
     return (
         <ContentAllBox>
