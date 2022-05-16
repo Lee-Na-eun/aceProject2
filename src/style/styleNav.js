@@ -45,5 +45,8 @@ export const MenuBody = styled.div`
             color : #FF4F83;
             cursor : pointer;
         }
+        > li:nth-child(1){
+            margin-top : 0;
+        }
     }
 `;

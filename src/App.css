@@ -95,3 +95,8 @@ body{
 .navLeftMove {
   animation: moveLeftNav 0.8s ease forwards;
 }
+
+.changeColor {
+  background-color : #FF4F83;
+  color : white;
+}

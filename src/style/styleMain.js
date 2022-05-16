@@ -1,12 +1,25 @@
 import styled from "styled-components";
 
 
+export const ContentAllBox = styled.div`
+    > button {
+        border : 2px solid #FF4F83;
+        width : 30px;
+        height : 30px;
+        margin-left : 15px;
+        background-color : white;
+        color : #FF4F83;
+        border-radius : 5px;
+        cursor : pointer;
+    }
+`;
+
 export const ContentListWrap = styled.div`
     display : flex;
     justify-content : center;
     align-items : center;
     width : 100vw;
-    height : 100vh;
+    height : 90vh;
 `;
 
 export const TableBox = styled.table`
