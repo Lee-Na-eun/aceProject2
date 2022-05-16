@@ -19,9 +19,12 @@ export const modalOpen = createSlice({
         insertOpen: (state) => {
             state.insertModalOpen = true
         },
+        insertClose: (state) => {
+            state.insertModalOpen = false
+        },
     }
 });
 
-export const {detailClose, detailOpen} = modalOpen.actions;
-export const modalDetail = (state) => state.detailModal;
+export const {detailClose, detailOpen, insertOpen, insertClose} = modalOpen.actions;
+export const modalDetailStatus = (state) => state.detailModal;
 export default modalOpen.reducer;

@@ -2,10 +2,12 @@ import {useEffect, useState} from "react";
 import {axiosApiInstance} from 'common/axiosToken'
 import {TableBox, ContentListWrap, ContentAllBox} from "../style/styleMain";
 import {saveContent} from "../redux/modal/saveContent";
-import {detailOpen, modalDetail} from "../redux/modal/modaOpen";
+import {detailOpen, modalDetailStatus} from "../redux/modal/modaOpen";
 import {useDispatch, useSelector} from "react-redux";
-import ModalDetail from "../component/ModalDetailContent";
-import {contentStatus} from "../redux/modal/saveContent";
+import ModalDetail from "../component/modalDetailContent";
+import ModalInsert from "../component/modalInsertContent";
+import {userInfoStatus} from "../redux/user/userInfo";
+import {saveUsername} from "../redux/user/userInfo";
 
 function Main() {
     const [postContent, setPostContent] = useState([]);
@@ -13,9 +15,14 @@ function Main() {
     const [onColor, setOnColor] = useState(0);
     const resultBtn = [];
     const dispatch = useDispatch();
-    const detailModalStatus = useSelector(modalDetail);
+    const detailModalStatus = useSelector(modalDetailStatus);
+    const userStatus = useSelector(userInfoStatus)
 
     useEffect(() => {
+        axiosApiInstance.get(`/api/post/userToken`)
+        .then((res) => {
+            dispatch(saveUsername({username : res.data.response}));
+        });
         axiosApiInstance.get(`/api/post-list`, {
             params: {
                 size: 10,
@@ -48,7 +55,6 @@ function Main() {
     const detailModalOpen = (boardId) => {
         axiosApiInstance.get(`/api/detail/${boardId}`)
         .then((res) => {
-            console.log(res.data)
             dispatch(saveContent({
                 title : res.data.title,
                 username : res.data.username,
@@ -57,12 +63,16 @@ function Main() {
 
         });
 
-        dispatch(detailOpen());
+        // dispatch(detailOpen());
+        setTimeout(() => dispatch(detailOpen()),600)
     }
+
+    console.log(userStatus);
 
     return (
         <ContentAllBox>
             {detailModalStatus.detailModalOpen ? <ModalDetail /> : null}
+            {detailModalStatus.insertModalOpen ? <ModalInsert /> : null}
             <ContentListWrap>
                 <TableBox>
                     <thead>

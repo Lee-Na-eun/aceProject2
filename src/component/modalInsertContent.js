@@ -4,21 +4,12 @@ import {
     ModalWrap,
     UsernameTitleBox
 } from "../style/styleModal";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {contentStatus} from "../redux/modal/saveContent";
-import {detailClose} from "../redux/modal/modaOpen";
 
 
-function ModalDetail () {
-    const dispatch = useDispatch();
+function ModalInsert () {
     const detailContent = useSelector(contentStatus);
-
-    console.log(detailContent)
-
-    const closeDetailModal = () => {
-        dispatch(detailClose());
-    }
-
 
     return (
         <ModalWrap>
@@ -26,18 +17,18 @@ function ModalDetail () {
                 <UsernameTitleBox>
                     <div className={"titleWrap"}>
                         <p>Title</p>
-                        <span>{detailContent.title}</span>
+                        <input></input>
                     </div>
                     <div className={"userWrap"}>
                         <p>작성자</p>
                         <span>{detailContent.username}</span>
                     </div>
                 </UsernameTitleBox>
-                <ContentBox>{detailContent.content}</ContentBox>
+                <textarea>{detailContent.content}</textarea>
             </ModalBox>
-            <span onClick={closeDetailModal}>&times;</span>
+            <span>&times;</span>
         </ModalWrap>
     )
 }
 
-export default ModalDetail;
+export default ModalInsert;
