@@ -18,7 +18,6 @@ axiosApiInstance.interceptors.request.use((config) => {
         config.headers.userToken = token;
         console.log('aaaaaa', config.headers.userToken);
     }
-
     config.headers["Content-Type"] = "application/json";
     config.headers["Access-Control-Allow-Origin"] = "*";
     config.headers["Access-Control-Allow-Headers"] = "X-Requested-With";
@@ -33,3 +32,16 @@ axiosApiInstance.interceptors.request.use((config) => {
 axiosApiInstance.interceptors.response.use(undefined, (err) => {
     return Promise.reject(err);
 })
+
+// axios.get(url, {
+//     params: this.cond
+// })
+// cond: {
+//     search: '',
+//         size: 10,
+//         page: 1,
+//         startDate: null,
+//         endDate: null,
+//         eventType: null,
+//         eventStatus: null,
+// },
