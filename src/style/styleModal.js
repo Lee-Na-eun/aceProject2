@@ -28,6 +28,27 @@ export const ModalBox = styled.div`
     height : 400px;
     background-color : #FF4F83;
     border-radius : 20px;
+    > textarea {
+        width : 400px;
+        height : 200px;
+        display : block;
+        margin : 0 auto;
+        border : none;
+        font-size : 15px;
+    }
+    > textarea:focus {
+        outline : none;
+    }
+    > button {
+        width : 160px;
+        height : 35px;
+        margin-top : 15px;
+        border: none;
+        background-color : white;
+        border-radius : 10px;
+        color : #FF4F83;
+        cursor : pointer;
+    }
 `;
 
 export const UsernameTitleBox = styled.div`
@@ -42,6 +63,16 @@ export const UsernameTitleBox = styled.div`
       color : white;
       text-align : left;
       border-right : 2px solid white;
+      > input {
+        border : none;
+        background-color:transparent;
+        border-bottom : 2px solid white;
+        color : white;
+        font-size : 18px;
+      }
+      > input:focus{
+        outline : none;
+      }
       > p {
         font-size : 20px;
       }

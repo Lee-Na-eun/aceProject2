@@ -3,7 +3,6 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     title : '',
-    username : '',
     content : ''
 }
 
@@ -13,7 +12,6 @@ export const contentSlice = createSlice({
     reducers: {
         saveContent: (state, action) => {
             state.title = action.payload.title
-            state.username = action.payload.username
             state.content = action.payload.content
         },
     }

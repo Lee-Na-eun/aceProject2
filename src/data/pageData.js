@@ -5,5 +5,5 @@ import NavBar from "component/nav";
 
 export const routePageDatas = [
     {routePath: '/', page : <LoginSignup />},
-    {routePath : '/main', page : <ProtectedRoute><NavBar /><Main /></ProtectedRoute>},
+    {routePath : '/main', page : <ProtectedRoute><NavBar /><Main /></ProtectedRoute>}
 ]

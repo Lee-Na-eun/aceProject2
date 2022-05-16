@@ -6,8 +6,8 @@ import {detailOpen, modalDetailStatus} from "../redux/modal/modaOpen";
 import {useDispatch, useSelector} from "react-redux";
 import ModalDetail from "../component/modalDetailContent";
 import ModalInsert from "../component/modalInsertContent";
-import {userInfoStatus} from "../redux/user/userInfo";
 import {saveUsername} from "../redux/user/userInfo";
+import {contentDataStatus} from "../redux/content/contentData";
 
 function Main() {
     const [postContent, setPostContent] = useState([]);
@@ -16,7 +16,6 @@ function Main() {
     const resultBtn = [];
     const dispatch = useDispatch();
     const detailModalStatus = useSelector(modalDetailStatus);
-    const userStatus = useSelector(userInfoStatus)
 
     useEffect(() => {
         axiosApiInstance.get(`/api/post/userToken`)
@@ -67,12 +66,10 @@ function Main() {
         setTimeout(() => dispatch(detailOpen()),600)
     }
 
-    console.log(userStatus);
-
     return (
         <ContentAllBox>
             {detailModalStatus.detailModalOpen ? <ModalDetail /> : null}
-            {detailModalStatus.insertModalOpen ? <ModalInsert /> : null}
+            {detailModalStatus.insertModalOpen ? <ModalInsert nextPage={nextPage} /> : null}
             <ContentListWrap>
                 <TableBox>
                     <thead>

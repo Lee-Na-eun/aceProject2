@@ -4,13 +4,15 @@ import navStatusReducer from './nav/navOpen'
 import detailModalReducer from './modal/modaOpen';
 import saveBoardIdReducer from './modal/saveBoardId';
 import detailContentReducer from './modal/saveContent'
+import contentDataReducer from './content/contentData'
 
 const reducer = combineReducers({
     userInfo : userInfoReducer,
     navOpen : navStatusReducer,
     detailModal : detailModalReducer,
     saveBoardId : saveBoardIdReducer,
-    detailContent : detailContentReducer
+    detailContent : detailContentReducer,
+    contentData : contentDataReducer
 });
 
 export default reducer;
