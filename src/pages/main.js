@@ -1,12 +1,19 @@
 import {useEffect, useState} from "react";
 import {axiosApiInstance} from 'common/axiosToken'
 import {TableBox, ContentListWrap, ContentAllBox} from "../style/styleMain";
+import {saveBoard} from "../redux/modal/saveBoardId";
+import {detailOpen, modalDetail} from "../redux/modal/modaOpen";
+import {useDispatch, useSelector} from "react-redux";
+import ModalDetail from "../component/ModalDetailContent";
 
 function Main() {
     const [postContent, setPostContent] = useState([]);
     const [allPageNumber, setAllPageNumber] = useState(0);
     const [onColor, setOnColor] = useState(0);
     const resultBtn = [];
+    const dispatch = useDispatch();
+    const detailModalStatus = useSelector(modalDetail);
+
     useEffect(() => {
         axiosApiInstance.get(`/api/post-list`, {
             params: {
@@ -17,7 +24,6 @@ function Main() {
         .then((res) => {
             setPostContent(res.data.response.content);
             setAllPageNumber(res.data.response.totalPages);
-            console.log('버튼 만들 때 필요', res.data.response.totalPages);
             console.log('a', res.data.response);
         });
     }, []);
@@ -25,8 +31,6 @@ function Main() {
     for(let i = 0; i < allPageNumber; i++){
         resultBtn.push(i);
     }
-
-    console.log(resultBtn)
 
     const nextPage = (btnIdx) => {
         axiosApiInstance.get(`/api/post-list`, {
@@ -41,9 +45,15 @@ function Main() {
         });
     }
 
+    const detailModalOpen = (boardId) => {
+        dispatch(saveBoard({boardId : boardId}));
+        dispatch(detailOpen());
+    }
+
 
     return (
         <ContentAllBox>
+            {detailModalStatus.detailModalOpen ? <ModalDetail /> : null}
             <ContentListWrap>
                 <TableBox>
                     <thead>
@@ -66,7 +76,7 @@ function Main() {
                             {el.username}
                         </td>
                         <td>
-                            <button>상세보기</button>
+                            <button onClick={() => detailModalOpen(el.boardId)}>상세보기</button>
                         </td>
                     </tr>)}
                     </tbody>
