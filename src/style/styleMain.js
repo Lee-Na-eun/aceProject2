@@ -29,6 +29,7 @@ export const ContentListWrap = styled.div`
             width : 400px;
             height : 30px;
             border : 2px solid #FF4F83;
+            padding-left : 10px;
         }
         > input:focus{
             outline : none;
@@ -41,6 +42,7 @@ export const ContentListWrap = styled.div`
             font-size : 10px;
             background-color : #FF4F83;
             color : white;
+            cursor : pointer;
         }
     }
 `;

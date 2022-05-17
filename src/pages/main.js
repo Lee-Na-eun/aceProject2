@@ -10,6 +10,8 @@ import {saveContentData, contentDataStatus} from "../redux/content/contentData";
 function Main() {
     const [allPageNumber, setAllPageNumber] = useState(0);
     const [onColor, setOnColor] = useState(0);
+    const [searchInput, setSearchInput] = useState('');
+    const [isSearch, setIsSearch] = useState(false);
     const resultBtn = [];
     const dispatch = useDispatch();
     const contentData = useSelector(contentDataStatus);
@@ -35,11 +37,12 @@ function Main() {
         resultBtn.push(i);
     }
 
-    const nextPage = (btnIdx) => {
-        axiosApiInstance.get(`/api/post-list`, {
+    const nextPage = (btnIdx, allOrSearch) => {
+        axiosApiInstance.get(`/api/post-list?`, {
             params: {
                 size: 10,
                 page: btnIdx,
+                search : searchInput
             }
         })
         .then((res) => {
@@ -62,11 +65,25 @@ function Main() {
         setTimeout(() => dispatch(detailOpen()),600)
     }
 
+    const searchInputChange = (e) => {
+        setSearchInput(e.target.value);
+    }
+
+    const searchResult = () => {
+        axiosApiInstance.get(`/api/post-list?size=10&search=${searchInput}`)
+        .then((res) => {
+            console.log(res)
+            dispatch(saveContentData({contentData : res.data.response.content}));
+            setAllPageNumber(res.data.response.totalPages);
+        })
+    }
+
     return (
         <ContentAllBox>
             <ContentListWrap>
                 <div className={'searchWrap'}>
-                    <input placeholder={"Title로 검색해주세요."}/><button>검색하기</button>
+                    <input placeholder={"Title로 검색해주세요."} onChange={searchInputChange} />
+                    <button onClick={searchResult}>검색하기</button>
                 </div>
                 <TableBox>
                     <thead>
