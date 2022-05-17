@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {navStatus, open, close} from "../redux/nav/navOpen";
 import {useState} from "react";
 import {insertOpen} from "../redux/modal/modaOpen";
+import { Link } from 'react-router-dom'
 
 function NavBar() {
     const navOpenStatus = useSelector(navStatus);
@@ -30,7 +31,12 @@ function NavBar() {
                 <MenuBody>
                     <ul>
                         <li onClick={insertModal}>게시글 작성</li>
-                        <li>내 게시글 보기</li>
+                        <li>
+                            <Link to={'/main'}>메인으로 가기</Link>
+                        </li>
+                        <li>
+                            <Link to={'/mypage'}>내 게시글 보기</Link>
+                        </li>
                         <li>로그아웃</li>
                     </ul>
                 </MenuBody>

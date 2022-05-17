@@ -34,6 +34,7 @@ export const TableBox = styled.table`
         > tr {
             > td {
                 padding: 20px;
+                font-size : 14px;
                 > button {
                     width : 90px;
                     height : 30px;

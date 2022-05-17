@@ -44,6 +44,10 @@ export const MenuBody = styled.div`
             line-height : 50px;
             color : #FF4F83;
             cursor : pointer;
+            > a {
+                text-decoration : none;
+                color : #FF4F83;
+            }
         }
         > li:nth-child(1){
             margin-top : 0;

@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 import ModalDetail from "../component/modalDetailContent";
 import ModalInsert from "../component/modalInsertContent";
 import {saveUsername} from "../redux/user/userInfo";
-import {contentDataStatus} from "../redux/content/contentData";
 
 function Main() {
     const [postContent, setPostContent] = useState([]);
@@ -62,7 +61,6 @@ function Main() {
 
         });
 
-        // dispatch(detailOpen());
         setTimeout(() => dispatch(detailOpen()),600)
     }
 
