@@ -1,5 +1,4 @@
 import {
-    ContentBox,
     ModalBox,
     ModalWrap,
     UsernameTitleBox
@@ -8,13 +7,12 @@ import {useSelector, useDispatch} from "react-redux";
 import {userInfoStatus} from "../redux/user/userInfo";
 import {useState} from "react";
 import {axiosApiInstance} from "../common/axiosToken";
-import {useNavigate} from "react-router";
 import {insertClose} from "../redux/modal/modaOpen";
+import {saveContentData} from "../redux/content/contentData";
 
 
 function ModalInsert ({nextPage}) {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const userInfo = useSelector(userInfoStatus);
     const [content, setContent] = useState({
         title : '',
@@ -23,6 +21,18 @@ function ModalInsert ({nextPage}) {
 
     const contentHandler = (key) => (e) => {
         setContent({...content, [key] : e.target.value});
+    }
+
+    const reloadContent = () => {
+        axiosApiInstance.get(`/api/post-list`, {
+            params: {
+                size: 10,
+                page: 0,
+            }
+        })
+        .then((res) => {
+            dispatch(saveContentData({contentData : res.data.response.content}))
+        });
     }
 
     const postContent = () => {
@@ -38,7 +48,7 @@ function ModalInsert ({nextPage}) {
                     alert('등록이 완료 되었습니다.');
                     dispatch(insertClose());
                     setContent({title: '', content : ''});
-                    nextPage(0);
+                    reloadContent()
                 }
             })
         }

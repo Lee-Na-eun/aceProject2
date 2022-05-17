@@ -1,16 +1,15 @@
 import {useEffect, useState} from "react";
 import {axiosApiInstance} from "../common/axiosToken";
-import ModalDetail from "../component/modalDetailContent";
-import ModalInsert from "../component/modalInsertContent";
 import {ContentAllBox, ContentListWrap, TableBox} from "../style/styleMain";
+import {saveContentData, contentDataStatus} from "../redux/content/contentData";
+import {useDispatch, useSelector} from "react-redux";
 
 function Mypage () {
-    const [myContent, setMyContent] = useState([]);
     const resultBtn = [];
     const [allPageNumber, setAllPageNumber] = useState(0);
     const [onColor, setOnColor] = useState(0);
-    const [isDelete, setIsDelete] = useState(false);
-
+    const dispatch = useDispatch();
+    const contentData = useSelector(contentDataStatus);
 
     useEffect(() => {
         axiosApiInstance.get(`/api/my-post`, {
@@ -19,13 +18,11 @@ function Mypage () {
                 page : 0
             }
         }).then((res) => {
-            setMyContent(res.data.response.content);
+            dispatch(saveContentData({contentData : res.data.response.content}));
             setAllPageNumber(res.data.response.totalPages);
-            // console.log(res.data.response.totalPages);
         })
     }, []);
 
-    console.log(myContent)
     for(let i = 0; i < allPageNumber; i++){
         resultBtn.push(i);
     }
@@ -37,23 +34,13 @@ function Mypage () {
                 page : btnIdx
             }
         }).then((res) => {
-            // if(res.data.response.delete === 1){
-            //     setIsDelete(true);
-            // }else{
-            //     setIsDelete(false);
-            // }
             console.log(res.data.response)
-            setMyContent(res.data.response.content);
             setOnColor(btnIdx);
         })
     }
 
-
-
     return (
         <ContentAllBox>
-            {/*{detailModalStatus.detailModalOpen ? <ModalDetail /> : null}*/}
-            {/*{detailModalStatus.insertModalOpen ? <ModalInsert nextPage={nextPage} /> : null}*/}
             <ContentListWrap>
                 <TableBox>
                     <thead>
@@ -65,7 +52,7 @@ function Mypage () {
                     </tr>
                     </thead>
                     <tbody>
-                    {myContent.map((el, idx) => <tr key={idx}>
+                    {contentData.contentData.map((el, idx) => <tr key={idx}>
                         <td>
                             {el.boardId}
                         </td>

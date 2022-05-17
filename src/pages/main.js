@@ -2,19 +2,17 @@ import {useEffect, useState} from "react";
 import {axiosApiInstance} from 'common/axiosToken'
 import {TableBox, ContentListWrap, ContentAllBox} from "../style/styleMain";
 import {saveContent} from "../redux/modal/saveContent";
-import {detailOpen, modalDetailStatus} from "../redux/modal/modaOpen";
+import {detailOpen} from "../redux/modal/modaOpen";
 import {useDispatch, useSelector} from "react-redux";
-import ModalDetail from "../component/modalDetailContent";
-import ModalInsert from "../component/modalInsertContent";
 import {saveUsername} from "../redux/user/userInfo";
+import {saveContentData, contentDataStatus} from "../redux/content/contentData";
 
 function Main() {
-    const [postContent, setPostContent] = useState([]);
     const [allPageNumber, setAllPageNumber] = useState(0);
     const [onColor, setOnColor] = useState(0);
     const resultBtn = [];
     const dispatch = useDispatch();
-    const detailModalStatus = useSelector(modalDetailStatus);
+    const contentData = useSelector(contentDataStatus);
 
     useEffect(() => {
         axiosApiInstance.get(`/api/post/userToken`)
@@ -28,7 +26,7 @@ function Main() {
             }
         })
         .then((res) => {
-            setPostContent(res.data.response.content);
+            dispatch(saveContentData({contentData : res.data.response.content}));
             setAllPageNumber(res.data.response.totalPages);
         });
     }, []);
@@ -45,7 +43,7 @@ function Main() {
             }
         })
         .then((res) => {
-            setPostContent(res.data.response.content);
+            dispatch(saveContentData({contentData : res.data.response.content}));
             setOnColor(btnIdx);
         });
     }
@@ -66,8 +64,8 @@ function Main() {
 
     return (
         <ContentAllBox>
-            {detailModalStatus.detailModalOpen ? <ModalDetail /> : null}
-            {detailModalStatus.insertModalOpen ? <ModalInsert nextPage={nextPage} /> : null}
+            {/*{detailModalStatus.detailModalOpen ? <ModalDetail /> : null}*/}
+            {/*{detailModalStatus.insertModalOpen ? <ModalInsert nextPage={nextPage} /> : null}*/}
             <ContentListWrap>
                 <TableBox>
                     <thead>
@@ -79,7 +77,7 @@ function Main() {
                     </tr>
                     </thead>
                     <tbody>
-                    {postContent.map((el, idx) => <tr key={idx}>
+                    {contentData.contentData.map((el, idx) => <tr key={idx}>
                         <td>
                             {el.boardId}
                         </td>

@@ -47,6 +47,7 @@ export const MenuBody = styled.div`
             > a {
                 text-decoration : none;
                 color : #FF4F83;
+                display : block;
             }
         }
         > li:nth-child(1){
