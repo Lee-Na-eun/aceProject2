@@ -18,6 +18,8 @@ function ModalDetail () {
         dispatch(detailClose());
     }
 
+    console.log(detailContent);
+
 
     return (
         <ModalWrap>

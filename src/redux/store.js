@@ -14,7 +14,7 @@ import {
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['userInfo'],
+    whitelist: ['userInfo', 'detailContent'],
     blacklist: [],
 };
 

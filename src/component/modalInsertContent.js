@@ -48,7 +48,7 @@ function ModalInsert ({nextPage}) {
                     alert('등록이 완료 되었습니다.');
                     dispatch(insertClose());
                     setContent({title: '', content : ''});
-                    reloadContent()
+                    reloadContent();
                 }
             })
         }

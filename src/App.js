@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {modalDetailStatus} from "./redux/modal/modaOpen";
 import ModalDetail from "./component/modalDetailContent";
 import ModalInsert from "./component/modalInsertContent";
+import ModalEdit from "./component/modalEditContent";
 
 function App() {
     const routePage = routePageDatas

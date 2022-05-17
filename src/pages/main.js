@@ -64,8 +64,6 @@ function Main() {
 
     return (
         <ContentAllBox>
-            {/*{detailModalStatus.detailModalOpen ? <ModalDetail /> : null}*/}
-            {/*{detailModalStatus.insertModalOpen ? <ModalInsert nextPage={nextPage} /> : null}*/}
             <ContentListWrap>
                 <TableBox>
                     <thead>
