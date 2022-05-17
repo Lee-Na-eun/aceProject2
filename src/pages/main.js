@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {axiosApiInstance} from 'common/axiosToken'
 import {TableBox, ContentListWrap, ContentAllBox} from "../style/styleMain";
 import {saveContent} from "../redux/modal/saveContent";
-import {detailOpen} from "../redux/modal/modaOpen";
+import {detailOpen} from "../redux/modal/modalOpen";
 import {useDispatch, useSelector} from "react-redux";
 import {saveUsername} from "../redux/user/userInfo";
 import {saveContentData, contentDataStatus} from "../redux/content/contentData";
@@ -65,6 +65,9 @@ function Main() {
     return (
         <ContentAllBox>
             <ContentListWrap>
+                <div className={'searchWrap'}>
+                    <input placeholder={"Title로 검색해주세요."}/><button>검색하기</button>
+                </div>
                 <TableBox>
                     <thead>
                     <tr>

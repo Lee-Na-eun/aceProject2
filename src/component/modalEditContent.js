@@ -3,12 +3,12 @@ import {
     ModalWrap,
     UsernameTitleBox
 } from "../style/styleModal";
-import {contentStatus, saveContent} from "../redux/modal/saveContent";
+import {contentStatus} from "../redux/modal/saveContent";
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {axiosApiInstance} from "../common/axiosToken";
 import {saveContentData} from "../redux/content/contentData";
-import {editClose} from "../redux/modal/modaOpen";
+import {editClose} from "../redux/modal/modalOpen";
 
 function ModalEdit ({boardId}) {
     const dispatch = useDispatch();
@@ -49,7 +49,7 @@ function ModalEdit ({boardId}) {
     }
 
     const updateEditContent = () => {
-        axiosApiInstance.put(`/api/update/${detailContent.boardId}/${editContent.title}/${editContent.content}`)
+        axiosApiInstance.put(`/api/update/${boardId}/${editContent.title}/${editContent.content}`)
         .then((res) => {
             if(res.data.response === "UPDATE OK"){
                 alert('수정이 완료 되었습니다.');

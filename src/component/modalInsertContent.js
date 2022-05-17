@@ -7,7 +7,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {userInfoStatus} from "../redux/user/userInfo";
 import {useState} from "react";
 import {axiosApiInstance} from "../common/axiosToken";
-import {insertClose} from "../redux/modal/modaOpen";
+import {insertClose} from "../redux/modal/modalOpen";
 import {saveContentData} from "../redux/content/contentData";
 
 

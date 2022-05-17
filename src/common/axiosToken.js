@@ -16,7 +16,6 @@ axiosApiInstance.interceptors.request.use((config) => {
     if(token !== ''){
         // config.headers.userToken = "Bearer " + token;
         config.headers.userToken = token;
-        console.log('aaaaaa', config.headers.userToken);
     }
     config.headers["Content-Type"] = "application/json";
     config.headers["Access-Control-Allow-Origin"] = "*";

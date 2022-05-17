@@ -2,10 +2,11 @@ import {useEffect, useState} from "react";
 import {axiosApiInstance} from "../common/axiosToken";
 import {ContentAllBox, ContentListWrap, TableBox} from "../style/styleMain";
 import {saveContentData, contentDataStatus} from "../redux/content/contentData";
-import {modalDetailStatus} from "../redux/modal/modaOpen";
+import {modalDetailStatus} from "../redux/modal/modalOpen";
 import {useDispatch, useSelector} from "react-redux";
-import {editOpen} from "../redux/modal/modaOpen";
+import {editOpen,deleteOpen} from "../redux/modal/modalOpen";
 import ModalEdit from "../component/modalEditContent";
+import ModalDelete from "../component/modalDeleteContent";
 
 function Mypage () {
     const resultBtn = [];
@@ -44,14 +45,19 @@ function Mypage () {
         })
     }
 
-    const editContentModalOpen = (boardId) => {
-        dispatch(editOpen());
+    const editOrDeleteContentModalOpen = (boardId, modalName) => {
+        if(modalName === 'edit'){
+            dispatch(editOpen());
+        }else{
+            dispatch(deleteOpen());
+        }
         setBoardId(boardId);
     }
 
     return (
         <ContentAllBox>
             {detailModalStatus.editModalOpen ? <ModalEdit boardId={boardId} /> : null}
+            {detailModalStatus.deleteModalOpen ? <ModalDelete boardId={boardId} /> : null}
             <ContentListWrap>
                 <TableBox>
                     <thead>
@@ -71,10 +77,10 @@ function Mypage () {
                             {el.title}
                         </td>
                         <td>
-                            {el.delete === 1 ? "삭제된 항목입니다." : <button>삭제하기</button>}
+                            {el.delete === 1 ? "삭제된 항목입니다." : <button onClick={() => editOrDeleteContentModalOpen(el.boardId, 'delete')}>삭제하기</button>}
                         </td>
                         <td>
-                            <button onClick={() => editContentModalOpen(el.boardId)}>수정하기</button>
+                            {el.delete === 1 ? <button disabled>수정하기</button> : <button onClick={() => editOrDeleteContentModalOpen(el.boardId, 'edit')}>수정하기</button>}
                         </td>
                     </tr>)}
                     </tbody>

@@ -6,7 +6,7 @@ import {
 } from "../style/styleModal";
 import {useDispatch, useSelector} from "react-redux";
 import {contentStatus} from "../redux/modal/saveContent";
-import {detailClose} from "../redux/modal/modaOpen";
+import {detailClose} from "../redux/modal/modalOpen";
 
 
 function ModalDetail () {

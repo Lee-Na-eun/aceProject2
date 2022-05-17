@@ -15,6 +15,7 @@ export const userInfoSlice = createSlice({
         },
         logout: (state) => {
             state.userToken = ''
+            state.username = ''
         },
         saveUsername : (state, action) => {
             state.username = action.payload.username

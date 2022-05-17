@@ -11,6 +11,7 @@ export const ContentAllBox = styled.div`
         color : #FF4F83;
         border-radius : 5px;
         cursor : pointer;
+        margin-top : 20px;
     }
 `;
 
@@ -20,6 +21,28 @@ export const ContentListWrap = styled.div`
     align-items : center;
     width : 100vw;
     height : 90vh;
+    flex-direction: column;
+    > .searchWrap {
+        width : 800px;
+        padding-bottom : 20px;
+        > input {
+            width : 400px;
+            height : 30px;
+            border : 2px solid #FF4F83;
+        }
+        > input:focus{
+            outline : none;
+        }
+        > button {
+            margin-left : 20px;
+            height : 34px;
+            width : 90px;
+            border : none;
+            font-size : 10px;
+            background-color : #FF4F83;
+            color : white;
+        }
+    }
 `;
 
 export const TableBox = styled.table`
@@ -45,7 +68,7 @@ export const TableBox = styled.table`
                     cursor : pointer;
                     transition : 0.3s;
                 }
-                > button:hover{
+                > button:hover:enabled{
                     background-color : #FFA4BF;
                     color : white;
                 }

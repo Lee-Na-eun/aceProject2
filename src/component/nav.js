@@ -4,8 +4,9 @@ import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import {useDispatch, useSelector} from "react-redux";
 import {navStatus, open, close} from "../redux/nav/navOpen";
 import {useState} from "react";
-import {insertOpen} from "../redux/modal/modaOpen";
+import {insertOpen} from "../redux/modal/modalOpen";
 import { Link } from 'react-router-dom'
+import {logoutOpen} from "../redux/modal/modalOpen";
 
 function NavBar() {
     const navOpenStatus = useSelector(navStatus);
@@ -37,7 +38,7 @@ function NavBar() {
                         <li>
                             <Link to={'/mypage'}>내 게시글 보기</Link>
                         </li>
-                        <li>로그아웃</li>
+                        <li onClick={() => dispatch(logoutOpen())}>로그아웃</li>
                     </ul>
                 </MenuBody>
                 <MenuButton onClick={moveNav}>

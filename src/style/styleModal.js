@@ -20,6 +20,9 @@ export const ModalWrap = styled.div`
         border-radius : 0 10px 10px 0;
         cursor : pointer;
     }
+    > .deleteBtn {
+        margin-top : -80px;
+    }
 `;
 
 
@@ -95,3 +98,28 @@ export const ContentBox = styled.div`
     border-radius : 20px;
     margin-top : 10px;
 `;
+
+export const DeleteModal = styled.div`
+    width : 400px;
+    height : 200px;
+    background-color : #FF4F83;
+    border-radius : 20px;
+    > div {
+        height : 140px;
+        line-height : 140px;
+        color : white;
+        font-size : 20px;
+        padding-top : 10px;
+    }
+    > button {
+        width : 90px;
+        height : 30px;
+        border : none;
+        border-radius : 10px;
+        font-size : 12px;
+        background-color : white;
+    }
+    > button:hover {
+        cursor : pointer;
+    }
+`
