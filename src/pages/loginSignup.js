@@ -17,6 +17,7 @@ function LoginSignup () {
         email : ''
     });
     const [isConfirm, setIsConfirm] = useState(false);
+    const [confirmUsername, setConfirmUsername] = useState('');
 
 
     const userInfoHandler = (key) => (e) => {
@@ -42,6 +43,7 @@ function LoginSignup () {
                     alert("사용 중인 아이디 입니다.");
                 }else{
                     setIsConfirm(true);
+                    setConfirmUsername(userInfo.username)
                     alert("사용할 수 있는 아이디 입니다.");
                 }
             })
@@ -51,7 +53,7 @@ function LoginSignup () {
     const handleSignup = () => {
         const validPassword = userInfo.password.length;
         const hyphenPhone = userInfo.phone.split('-');
-        if(!isConfirm){
+        if(!isConfirm || userInfo.username !== confirmUsername){
             alert("아이디 중복확인을 해주세요.");
         }else if(userInfo.password !== userInfo.repeatPassword){
             alert("비밀번호가 일치하지 않습니다.");
@@ -68,6 +70,15 @@ function LoginSignup () {
             }).then((res) => {
                 if(res.data.response === "REGIST OK"){
                     alert("회원가입이 완료 되었습니다.");
+                    setIsSignup(false);
+                    setIsConfirm(false);
+                    setUserInfo({
+                        username : '',
+                        password : '',
+                        repeatPassword : '',
+                        phone : '',
+                        email : ''
+                    })
                 }
             }).catch(() => {
                 alert("잠시 후 다시 이용해 주세요.");
@@ -96,7 +107,9 @@ function LoginSignup () {
         });
     }
 
-    // console.log('',isConfirm)
+    console.log('중복유저 : ',confirmUsername);
+    console.log('유저 : ',userInfo.username);
+    console.log(confirmUsername === userInfo.username)
 
     return (
         <LoginSignupWrap>
@@ -114,14 +127,14 @@ function LoginSignup () {
                     <h3>SIGNUP</h3>
                     <SignupInputBox>
                         <div id={"nicknameWrap"}>
-                            <input placeholder={"Nickname"} onChange={userInfoHandler('username')} />
+                            <input placeholder={"Nickname"} onChange={userInfoHandler('username')} value={userInfo.username} />
                             <button onClick={handleConfirmUsername}>Confirm</button>
                         </div>
-                        <input placeholder={"Phone Number"} onChange={userInfoHandler('phone')} />
-                        <input placeholder={"Email Address"} onChange={userInfoHandler('email')} />
+                        <input placeholder={"Phone Number"} onChange={userInfoHandler('phone')} value={userInfo.phone} />
+                        <input placeholder={"Email Address"} onChange={userInfoHandler('email')} value={userInfo.email} />
                         <div id={"passwordWrap"}>
-                            <input type={"password"} placeholder={"Password"} onChange={userInfoHandler('password')} />
-                            <input type={"password"} placeholder={"Repeat Password"} onChange={userInfoHandler('repeatPassword')} />
+                            <input type={"password"} placeholder={"Password"} onChange={userInfoHandler('password')} value={userInfo.password} />
+                            <input type={"password"} placeholder={"Repeat Password"} onChange={userInfoHandler('repeatPassword')} value={userInfo.repeatPassword} />
                         </div>
                         <button onClick={handleSignup}>GO</button>
                     </SignupInputBox>

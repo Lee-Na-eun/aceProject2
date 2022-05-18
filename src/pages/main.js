@@ -6,12 +6,16 @@ import {detailOpen} from "../redux/modal/modalOpen";
 import {useDispatch, useSelector} from "react-redux";
 import {saveUsername} from "../redux/user/userInfo";
 import {saveContentData, contentDataStatus} from "../redux/content/contentData";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
 function Main() {
     const [allPageNumber, setAllPageNumber] = useState(0);
     const [onColor, setOnColor] = useState(0);
     const [searchInput, setSearchInput] = useState('');
-    const [isSearch, setIsSearch] = useState(false);
+    const [pageIdx, setPageIdx] = useState(0);
+    const [isEnd, setIsEnd] = useState(false);
+    const [isFirst, setIsFirst] = useState(true);
     const resultBtn = [];
     const dispatch = useDispatch();
     const contentData = useSelector(contentDataStatus);
@@ -30,6 +34,7 @@ function Main() {
         .then((res) => {
             dispatch(saveContentData({contentData : res.data.response.content}));
             setAllPageNumber(res.data.response.totalPages);
+            console.log('res : ',res)
         });
     }, []);
 
@@ -38,6 +43,9 @@ function Main() {
     }
 
     const nextPage = (btnIdx, allOrSearch) => {
+        if(btnIdx !== 0){
+            setIsFirst(false);
+        }
         axiosApiInstance.get(`/api/post-list?`, {
             params: {
                 size: 10,
@@ -48,6 +56,15 @@ function Main() {
         .then((res) => {
             dispatch(saveContentData({contentData : res.data.response.content}));
             setOnColor(btnIdx);
+            setPageIdx(btnIdx);
+            console.log('next : ', res)
+            if(res.data.response.last){
+                setIsFirst(false);
+                setIsEnd(true);
+            }else if(res.data.response.first){
+                setIsFirst(true);
+                setIsEnd(false);
+            }
         });
     }
 
@@ -100,7 +117,7 @@ function Main() {
                             {el.boardId}
                         </td>
                         <td>
-                            {el.title}
+                            <span>{el.title}</span>
                         </td>
                         <td>
                             {el.username}
@@ -112,8 +129,19 @@ function Main() {
                     </tbody>
                 </TableBox>
             </ContentListWrap>
-            {resultBtn.map((el) =>
-                <button key={el} onClick={() => nextPage(el)} style={el === onColor ? {backgroundColor : "#FF4F83", color : "white", transition : "0.4s"} : {backgroundColor : "white", transition : "0.4s"}}>{el + 1}</button>)}
+
+            {/*{resultBtn.map((el) =>*/}
+            {/*    <button key={el} onClick={() => nextPage(el)} style={el === onColor ? {backgroundColor : "#FF4F83", color : "white", transition : "0.4s"} : {backgroundColor : "white", transition : "0.4s"}}>{el + 1}</button>)}*/}
+            {pageIdx === 0 ? <div className={"pagingBtn"}>
+                {resultBtn.map((el) => <button key={el} onClick={() => nextPage(el)} style={el === onColor ? {backgroundColor : "#FF4F83", color : "white", transition : "0.4s"} : {backgroundColor : "white", transition : "0.4s"}}>{el + 1}</button>)}
+                <div className={"nextBtn"}>
+                    <FontAwesomeIcon icon={faAngleRight} />
+                </div>
+                <div className={"nextBtn"}>
+                    <FontAwesomeIcon icon={faAnglesRight} />
+                </div>
+            </div> : null}
+            {/*{sliceBtn(pageIdx)}*/}
         </ContentAllBox>
     )
 }

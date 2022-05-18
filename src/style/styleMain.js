@@ -2,16 +2,29 @@ import styled from "styled-components";
 
 
 export const ContentAllBox = styled.div`
-    > button {
-        border : 2px solid #FF4F83;
-        width : 30px;
-        height : 30px;
-        margin-left : 15px;
-        background-color : white;
-        color : #FF4F83;
-        border-radius : 5px;
-        cursor : pointer;
-        margin-top : 20px;
+    > .pagingBtn {
+        display : flex;
+        width : 1000px;
+        justify-content : center;
+        margin : 0 auto;
+        > button {
+            border : 2px solid #FF4F83;
+            width : 30px;
+            height : 30px;
+            margin-left : 15px;
+            background-color : white;
+            color : #FF4F83;
+            border-radius : 5px;
+            cursor : pointer;
+        }
+        > .nextBtn {
+            display : inline-block;
+            width : 30px;
+            font-size : 24px;
+            color : #FF4F83;
+            margin-left : 10px;
+            cursor : pointer;
+        }
     }
 `;
 
@@ -22,9 +35,10 @@ export const ContentListWrap = styled.div`
     width : 100vw;
     height : 90vh;
     flex-direction: column;
+    margin-bottom : 10px;
     > .searchWrap {
         width : 800px;
-        padding-bottom : 20px;
+        padding : 20px 0;
         > input {
             width : 400px;
             height : 30px;
@@ -60,6 +74,16 @@ export const TableBox = styled.table`
             > td {
                 padding: 20px;
                 font-size : 14px;
+                > span {
+                    display : block;
+                    width : 450px;
+                    height : 30px;
+                    margin : 0 auto;
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                    white-space:nowrap;
+                    line-height : 30px;
+                }
                 > button {
                     width : 90px;
                     height : 30px;
