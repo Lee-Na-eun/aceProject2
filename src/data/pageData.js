@@ -3,6 +3,7 @@ import LoginSignup from 'pages/loginSignup';
 import ProtectedRoute from 'common/protectedRoute';
 import NavBar from 'component/nav';
 import Mypage from "../pages/mypage";
+import PostNew from "../pages/postNew";
 
 export const routePageDatas = [
   { routePath: '/', page: <LoginSignup /> },
@@ -23,4 +24,12 @@ export const routePageDatas = [
       </ProtectedRoute>
     ),
   },
+  {
+    routePath: '/postNew',
+    page : (
+        <ProtectedRoute>
+          <NavBar /><PostNew />
+        </ProtectedRoute>
+    )
+  }
 ];

@@ -42,7 +42,7 @@ function Main() {
         resultBtn.push(i);
     }
 
-    const nextPage = (btnIdx, allOrSearch) => {
+    const nextPage = (btnIdx) => {
         if(btnIdx !== 0){
             setIsFirst(false);
         }

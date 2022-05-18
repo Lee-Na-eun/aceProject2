@@ -31,7 +31,9 @@ function NavBar() {
             <div className={isFirst ? "" : navOpenStatus.isNavOpen ? "navRightMove" : "navLeftMove"}>
                 <MenuBody>
                     <ul>
-                        <li onClick={insertModal}>게시글 작성</li>
+                        <li>
+                            <Link to={'/postNew'}>게시글 작성</Link>
+                        </li>
                         <li>
                             <Link to={'/main'}>메인으로 가기</Link>
                         </li>
