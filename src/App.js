@@ -5,12 +5,12 @@ import {useSelector} from "react-redux";
 import {modalDetailStatus} from "./redux/modal/modalOpen";
 import ModalDetail from "./component/modalDetailContent";
 import ModalInsert from "./component/modalInsertContent";
-import ModalEdit from "./component/modalEditContent";
 import ModalLogout from "./component/modalLogout";
 
 function App() {
     const routePage = routePageDatas
     const detailModalStatus = useSelector(modalDetailStatus);
+
 
     return (
         <div className="App">
@@ -21,7 +21,7 @@ function App() {
                 <Routes>
                     {routePage.map(
                         (el, idx) =>
-                            <Route key={idx} path={el.routePath} element={el.page}/>)}
+                            <Route key={idx} path={el.routePath} element={el.page}  />)}
                 </Routes>
             </BrowserRouter>
         </div>

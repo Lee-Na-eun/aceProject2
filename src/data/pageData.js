@@ -4,6 +4,8 @@ import ProtectedRoute from 'common/protectedRoute';
 import NavBar from 'component/nav';
 import Mypage from "../pages/mypage";
 import PostNew from "../pages/postNew";
+import PostDetail from "../pages/postDetail";
+import EditContent from "../pages/editContent";
 
 export const routePageDatas = [
   { routePath: '/', page: <LoginSignup /> },
@@ -31,5 +33,21 @@ export const routePageDatas = [
           <NavBar /><PostNew />
         </ProtectedRoute>
     )
-  }
+  },
+    {
+        routePath: '/postDetail',
+        page : (
+            <ProtectedRoute>
+                <NavBar /><PostDetail />
+            </ProtectedRoute>
+        )
+    },
+    {
+        routePath: '/postUpdate/:boardId',
+        page : (
+            <ProtectedRoute>
+                <NavBar /><EditContent />
+            </ProtectedRoute>
+        )
+    }
 ];

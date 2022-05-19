@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {editOpen,deleteOpen} from "../redux/modal/modalOpen";
 import ModalEdit from "../component/modalEditContent";
 import ModalDelete from "../component/modalDeleteContent";
+import {Link} from "react-router-dom";
 
 function Mypage () {
     const resultBtn = [];
@@ -80,7 +81,7 @@ function Mypage () {
                             {el.delete === 1 ? "삭제된 항목입니다." : <button onClick={() => editOrDeleteContentModalOpen(el.boardId, 'delete')}>삭제하기</button>}
                         </td>
                         <td>
-                            {el.delete === 1 ? <button disabled>수정하기</button> : <button onClick={() => editOrDeleteContentModalOpen(el.boardId, 'edit')}>수정하기</button>}
+                            {el.delete === 1 ? <button style={{cursor : "default"}} disabled>수정하기</button> : <Link to={`/postUpdate/${el.boardId}`}><button>수정하기</button></Link>}
                         </td>
                     </tr>)}
                     </tbody>

@@ -8,6 +8,7 @@ import {saveUsername} from "../redux/user/userInfo";
 import {saveContentData, contentDataStatus} from "../redux/content/contentData";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
+import {Link} from "react-router-dom";
 
 function Main() {
     const [allPageNumber, setAllPageNumber] = useState(0);
@@ -89,7 +90,6 @@ function Main() {
     const searchResult = () => {
         axiosApiInstance.get(`/api/post-list?size=10&search=${searchInput}`)
         .then((res) => {
-            console.log(res)
             dispatch(saveContentData({contentData : res.data.response.content}));
             setAllPageNumber(res.data.response.totalPages);
         })
@@ -123,24 +123,26 @@ function Main() {
                             {el.username}
                         </td>
                         <td>
-                            <button onClick={() => detailModalOpen(el.boardId)}>상세보기</button>
+                            <Link to={`/postDetail?boardId=${el.boardId}`}>
+                                <button>상세보기</button>
+                            </Link>
                         </td>
                     </tr>)}
                     </tbody>
                 </TableBox>
             </ContentListWrap>
 
-            {/*{resultBtn.map((el) =>*/}
-            {/*    <button key={el} onClick={() => nextPage(el)} style={el === onColor ? {backgroundColor : "#FF4F83", color : "white", transition : "0.4s"} : {backgroundColor : "white", transition : "0.4s"}}>{el + 1}</button>)}*/}
-            {pageIdx === 0 ? <div className={"pagingBtn"}>
-                {resultBtn.map((el) => <button key={el} onClick={() => nextPage(el)} style={el === onColor ? {backgroundColor : "#FF4F83", color : "white", transition : "0.4s"} : {backgroundColor : "white", transition : "0.4s"}}>{el + 1}</button>)}
-                <div className={"nextBtn"}>
-                    <FontAwesomeIcon icon={faAngleRight} />
-                </div>
-                <div className={"nextBtn"}>
-                    <FontAwesomeIcon icon={faAnglesRight} />
-                </div>
-            </div> : null}
+            {resultBtn.map((el) =>
+                <button key={el} onClick={() => nextPage(el)} style={el === onColor ? {backgroundColor : "#FF4F83", color : "white", transition : "0.4s"} : {backgroundColor : "white", transition : "0.4s"}}>{el + 1}</button>)}
+            {/*<div className={"pagingBtn"}>*/}
+            {/*    {resultBtn.map((el) => <button key={el} onClick={() => nextPage(el)} style={el === onColor ? {backgroundColor : "#FF4F83", color : "white", transition : "0.4s"} : {backgroundColor : "white", transition : "0.4s"}}>{el + 1}</button>)}*/}
+            {/*    <div className={"nextBtn"}>*/}
+            {/*        <FontAwesomeIcon icon={faAngleRight} />*/}
+            {/*    </div>*/}
+            {/*    <div className={"nextBtn"}>*/}
+            {/*        <FontAwesomeIcon icon={faAnglesRight} />*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             {/*{sliceBtn(pageIdx)}*/}
         </ContentAllBox>
     )

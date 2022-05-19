@@ -31,7 +31,7 @@ export const PostBox = styled.div`
 
 export const TitleWrap = styled.div`
     width : 400px;
-    height : 200px;
+    height : 100px;
     margin : 0 auto;
     display : flex;
     align-items : center;
@@ -67,5 +67,19 @@ export const ContentWrap = styled.div`
         border : none;
         background-color : #ddd;
         outline : none;
+    }
+`;
+
+export const UserWrap = styled.div`
+    width : 400px;
+    height : 100px;
+    margin : 0 auto;
+    display : flex;
+    align-items : center;
+    justify-content : center;
+    > p {
+        text-align : left;
+        font-size : 20px;
+        padding-right : 20px;
     }
 `;

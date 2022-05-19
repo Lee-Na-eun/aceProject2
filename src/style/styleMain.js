@@ -2,11 +2,6 @@ import styled from "styled-components";
 
 
 export const ContentAllBox = styled.div`
-    > .pagingBtn {
-        display : flex;
-        width : 1000px;
-        justify-content : center;
-        margin : 0 auto;
         > button {
             border : 2px solid #FF4F83;
             width : 30px;
@@ -17,15 +12,6 @@ export const ContentAllBox = styled.div`
             border-radius : 5px;
             cursor : pointer;
         }
-        > .nextBtn {
-            display : inline-block;
-            width : 30px;
-            font-size : 24px;
-            color : #FF4F83;
-            margin-left : 10px;
-            cursor : pointer;
-        }
-    }
 `;
 
 export const ContentListWrap = styled.div`
